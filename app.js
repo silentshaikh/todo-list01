@@ -14,8 +14,8 @@ const addList = () => {
     myObj.forEach((element,index) => {
         todolist += `  <li>
             <p id="para">${element.todoList}</p>
-        <i id="edit" onclick="todoEdit(this)" class="fa-solid fa-pen-fancy"></i>
-            <i id="delete" onclick="todoDelete(${index})" class="fa-solid fa-trash"></i>
+        <i id="edit" title="Edit" onclick="todoEdit(this)" class="fa-solid fa-pen-fancy"></i>
+            <i id="delete" title="Delete" onclick="todoDelete(${index})" class="fa-solid fa-trash"></i>
         </li>
        
         `;
@@ -43,7 +43,6 @@ const addFunc = () => {
     
     localStorage.setItem("TodoList",JSON.stringify(myObj));
     todoInp.value = "";
-    console.log(myObj);
     addList();
 }
 todoAdd.addEventListener("click",addFunc);
@@ -62,7 +61,6 @@ function todoDelete(index){
 function todoEdit(e){
     let myTask = e.previousElementSibling;
     todoInp.value = myTask.innerText;
-    console.log(myTask);
     todoDelete(e);
 }
 clearBtn.addEventListener("click",() => {
