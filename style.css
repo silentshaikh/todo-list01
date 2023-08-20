@@ -79,25 +79,51 @@ body{
     cursor: pointer;
 }
 .crud{
+    height: 14vh;
+    width: 30%;
+    /* background-color: blue; */
     position: relative;
-    /* left: 40px; */
-    top: 140px;
-    right: 20px;
+    left: 105%;
+    top: -10px;
     background-color: #fff;
-    padding: 10px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+     padding: 10px;
+    border-radius: 10px;
+}
+.crud{
+    position: relative;
+    left: 470px;
+    top: -60px;
+    /* right: 70px; */
+    background-color: #fff;
+    padding: 10px 5px;
     border-radius: 10px;
     list-style-type: none;
     z-index: 3;
-    display: none;
     transition: 0.4s;
+    width: 100px;
+    height: 70px;
+    display: none;
 }
 .crud li{
-    padding: 0 5px;
+    /* padding: 0 5px; */
+    text-align: center;
     cursor: pointer;
 }
 .crud li:hover{
     color: aquamarine;
 }
+
 .show{
     display: block;
+}
+#edit{
+    position: absolute;
+    right: 20px;
+}
+#edit:hover{
+    color: aquamarine;
+}
+#delete:hover{
+    color: aquamarine;
 }

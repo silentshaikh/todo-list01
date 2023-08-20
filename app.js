@@ -1,68 +1,78 @@
-let todoList = document.getElementById("todo-list");
-let todoInput = document.getElementById("todo-input");
+let todoInp = document.getElementById("todo-input");
 let todoAdd = document.getElementById("btn1");
-let todoClr = document.getElementById("btn2");
-let editBtn = document.getElementById("edit-btn");
-let deleteBtn = document.getElementById("delete-btn");
-let crd = document.getElementById("crd");
+let clearBtn = document.getElementById("btn2");
+let parList = document.getElementById("todo-list");
+const addList = () => {
+    let getTodo = localStorage.getItem("TodoList");
+    if(getTodo === null){
+        myObj = [];
+    }else{
+        myObj = JSON.parse(getTodo);
+    }
+    let todolist = ``;
 
-
-todoAdd.addEventListener("click", () => {
-    if (todoInput.value === "") {
-        alert("Enter a List");
-    } else {
-        let list = ` 
-        <p id="para">${todoInput.value}</p>
+    myObj.forEach((element,index) => {
+        todolist += `  <li>
+            <p id="para">${element.todoList}</p>
+        <i id="edit" onclick="todoEdit(this)" class="fa-solid fa-pen-fancy"></i>
+            <i id="delete" onclick="todoDelete(${index})" class="fa-solid fa-trash"></i>
+        </li>
+       
         `;
-        // <i  class="fa-solid fa-ellipsis-vertical"></i>
-        let creLi = document.createElement("li");
-        let barBe = document.createElement("i");
-        creLi.setAttribute("id", "tod-list");
-        barBe.setAttribute("class", "fa-solid fa-ellipsis-vertical");
-        creLi.innerHTML = list;
-        creLi.appendChild(barBe);
-        // barBe.setAttribute("id", "togl")
-        todoList.appendChild(creLi);
-        todoInput.value = "";
+    })
+    parList.innerHTML = todolist;
 
-        // console.log(todoTogl);
-        let todoTogl = creLi.children[1];
-        // toggle button
-        let togg = () => {
-            crd.classList.toggle("show");
+}
+addList();
+
+
+const addFunc = () => {
+    let getTodo = localStorage.getItem("TodoList");
+    if(todoInp.value === ""){
+        alert("Please Fill the Input");
+    }else{
+        if(getTodo === null){
+            myObj = [];
+        }else{
+            myObj = JSON.parse(getTodo);
         }
-        todoTogl.addEventListener("click", togg);
-
-        //Edit
-        let todoPara = document.getElementById("para");
-        editBtn.addEventListener("click", () => {
-            if (todoInput.value === "") {
-                todoInput.value = todoPara.innerText;
-            } else if (todoInput.value !== "") {
-                todoPara.innerText = todoInput.value;
-
-                todoInput.value = "";
-            };
-
-
-        });
-        //delete
-        let todList = document.getElementById("tod-list");
-        deleteBtn.addEventListener("click", () => {
-            todList.remove();
-            crd.remove();
-
-        });
-
-
+            myObj.push({
+                todoList:todoInp.value,
+            });
     };
+    
+    localStorage.setItem("TodoList",JSON.stringify(myObj));
+    todoInp.value = "";
+    console.log(myObj);
+    addList();
+}
+todoAdd.addEventListener("click",addFunc);
 
-});
-//Clear
-todoClr.addEventListener("click", () => {
-    todoList.innerHTML = "";
-});
-
-
-
-
+function todoDelete(index){
+    let getTodo = localStorage.getItem("TodoList");
+    if(getTodo === null){
+        myObj = [];
+    }else{
+        myObj = JSON.parse(getTodo);
+    }
+    myObj.splice(index,1);
+    localStorage.setItem("TodoList",JSON.stringify(myObj));
+    addList();
+};
+function todoEdit(e){
+    let myTask = e.previousElementSibling;
+    todoInp.value = myTask.innerText;
+    console.log(myTask);
+    todoDelete(e);
+}
+clearBtn.addEventListener("click",() => {
+    let getTodo = localStorage.getItem("TodoList");
+    if(getTodo === null){
+        myObj = [];
+    }else{
+        myObj = JSON.parse(getTodo);
+    }
+    myObj.splice(0,myObj.length);
+    localStorage.setItem("TodoList",JSON.stringify(myObj));
+    addList();
+})
