@@ -4,7 +4,7 @@ let clearBtn = document.getElementById("btn2");
 let parList = document.getElementById("todo-list");
 const addList = () => {
     let getTodo = localStorage.getItem("TodoList");
-    if(getTodo === null){
+    if(getTodo == null){
         myObj = [];
     }else{
         myObj = JSON.parse(getTodo);
@@ -12,10 +12,10 @@ const addList = () => {
     let todolist = ``;
 
     myObj.forEach((element,index) => {
-        todolist += `  <li>
+        todolist += `  <li id="${index}">
             <p id="para">${element.todoList}</p>
-        <i id="edit" title="Edit" onclick="todoEdit(this)" class="fa-solid fa-pen-fancy"></i>
-            <i id="delete" title="Delete" onclick="todoDelete(${index})" class="fa-solid fa-trash"></i>
+        <i id="edit" onclick="todoEdit(this)" class="fa-solid fa-pen-fancy"></i>
+            <i  onclick="todoDelete(this)" class="fa-solid fa-trash"></i>
         </li>
        
         `;
@@ -31,7 +31,7 @@ const addFunc = () => {
     if(todoInp.value === ""){
         alert("Please Fill the Input");
     }else{
-        if(getTodo === null){
+        if(getTodo == null){
             myObj = [];
         }else{
             myObj = JSON.parse(getTodo);
@@ -43,34 +43,38 @@ const addFunc = () => {
     
     localStorage.setItem("TodoList",JSON.stringify(myObj));
     todoInp.value = "";
+    console.log(myObj);
     addList();
 }
 todoAdd.addEventListener("click",addFunc);
 
-function todoDelete(index){
+const todoDelete = (e) => {
+    let todoDel = e.parentElement.id;
+    let getTodo = localStorage.getItem("TodoList");
+    if(getTodo == null){
+        myObj = [];
+    }else{
+        myObj = JSON.parse(getTodo);
+    }
+    myObj.splice(todoDel,1);
+    localStorage.setItem("TodoList",JSON.stringify(myObj));
+    addList();
+};
+const todoEdit = (e) => {
+    let myTask = e.previousElementSibling;
+    todoInp.value = myTask.innerText;
+    console.log(myTask);
+    todoDelete(e);
+    
+}
+clearBtn.addEventListener("click",() => {
     let getTodo = localStorage.getItem("TodoList");
     if(getTodo === null){
         myObj = [];
     }else{
         myObj = JSON.parse(getTodo);
     }
-    myObj.splice(index,1);
+    myObj.splice(0,myObj.length);
     localStorage.setItem("TodoList",JSON.stringify(myObj));
     addList();
-};
-function todoEdit(e){
-    let myTask = e.previousElementSibling;
-    todoInp.value = myTask.innerText;
-    todoDelete(e);
-}
-// clearBtn.addEventListener("click",() => {
-//     let getTodo = localStorage.getItem("TodoList");
-//     if(getTodo === null){
-//         myObj = [];
-//     }else{
-//         myObj = JSON.parse(getTodo);
-//     }
-//     myObj.splice(0,myObj.length);
-//     localStorage.setItem("TodoList",JSON.stringify(myObj));
-//     addList();
-// })
+})
