@@ -63,14 +63,14 @@ function todoEdit(e){
     todoInp.value = myTask.innerText;
     todoDelete(e);
 }
-clearBtn.addEventListener("click",() => {
-    let getTodo = localStorage.getItem("TodoList");
-    if(getTodo === null){
-        myObj = [];
-    }else{
-        myObj = JSON.parse(getTodo);
-    }
-    myObj.splice(0,myObj.length);
-    localStorage.setItem("TodoList",JSON.stringify(myObj));
-    addList();
-})
+// clearBtn.addEventListener("click",() => {
+//     let getTodo = localStorage.getItem("TodoList");
+//     if(getTodo === null){
+//         myObj = [];
+//     }else{
+//         myObj = JSON.parse(getTodo);
+//     }
+//     myObj.splice(0,myObj.length);
+//     localStorage.setItem("TodoList",JSON.stringify(myObj));
+//     addList();
+// })
