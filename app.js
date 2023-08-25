@@ -14,8 +14,8 @@ const addList = () => {
     myObj.forEach((element,index) => {
         todolist += `  <li id="${index}">
             <p id="para">${element.todoList}</p>
-        <i id="edit" onclick="todoEdit(this)" class="fa-solid fa-pen-fancy"></i>
-            <i id="delete" onclick="todoDelete(this)" class="fa-solid fa-trash"></i>
+        <i id="edit" onclick="todoEdit(this)"  title="Edit" class="fa-solid fa-pen-fancy"></i>
+            <i id="delete" onclick="todoDelete(this)" title="Delete" class="fa-solid fa-trash"></i>
         </li>
        
         `;
